@@ -51,7 +51,7 @@ public class WeatherApplication implements CommandLineRunner {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         final HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(map, headers);
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor("4144a6d0-7ed6-4ecc-8134-a7961f17caa2", "blaaablaaaa"));
+        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor("4144a6d0-7ed6-4ecc-8134-a7961f17caa2", "blaaa-app-key"));
         ResponseEntity<String> responseEntity = restTemplate.exchange(weatherUrl, HttpMethod.GET, entity, String.class);
         String authRequest = restTemplate.getForObject(URL_LOCATION, String.class);
         // Read JSON and populate java objects
