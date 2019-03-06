@@ -17,7 +17,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOption
 @SpringBootApplication
 public class ImageRecoApplication implements CommandLineRunner {
 
-    private static final String APPLICATION_KEY = "blaaa-app-key";
+    private static final String APPLICATION_KEY = "x1B4Unmmvsyb7djYMG-cXQzatIugFnSfq6dOh6E-8ZA_";
 
     private static final String URL = "https://gateway.watsonplatform.net/visual-recognition/api";
 
