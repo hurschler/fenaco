@@ -32,6 +32,6 @@ public class Application implements CommandLineRunner {
         ausgabe.setJahr("2018");
         ausgabe.setSprache("de");
         Tika.extractPdf(ausgabe, "ufarevue/2018_3093855/D_UR0118_Composit.pdf");
-        ausgabeRepo.save(ausgabe);
+        // ausgabeRepo.save(ausgabe);
     }
 }

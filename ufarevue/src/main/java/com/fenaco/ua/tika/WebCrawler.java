@@ -62,11 +62,11 @@ public class WebCrawler extends Tika {
                         FileOutputStream fileOutputStream = new FileOutputStream(fileName);
                         FileChannel fileChannel = fileOutputStream.getChannel();
                         fileOutputStream.getChannel().transferFrom(readableByteChannel, 0, Long.MAX_VALUE);
-                        try {
-                            Tika.extractPdf(new Ausgabe(), fileName);
-                        } catch (SAXException | TikaException e) {
-                            e.printStackTrace();
-                        }
+                        // try {
+                            // Tika.extractPdf(new Ausgabe(), fileName);
+                        // } catch (SAXException | TikaException e) {
+                        //    e.printStackTrace();
+                        // }
                     }
                 }
             } catch (IOException e) {

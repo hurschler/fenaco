@@ -69,7 +69,7 @@ public class MailBestaetigung {
 		URI namespaceEndpointURI = MessageUtils.getNamespaceEndpointURI();
 		// ClientSettings managementClientSettings = MessageUtils.getManagementClientSettings();
 		if (this.shouldCreateEntityForEveryTest() || MailBestaetigung.entityNameCreatedForAllTests == null) {
-			this.entityName = "mailBestaetigung";			
+			this.entityName = "queue";			
 			this.receiveEntityPath = this.entityName;
 			QueueDescription queueDescription = new QueueDescription(this.entityName);
 			queueDescription.setEnablePartitioning(this.isEntityPartitioned());
