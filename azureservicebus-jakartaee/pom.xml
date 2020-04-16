@@ -1,0 +1,144 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.fenaco.ua</groupId>
+  <artifactId>azureservicebus-jakartaee</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>ejb</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-web-api</artifactId>
+      <version>8.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+    
+      <!-- Java EE 8 dependency, required for all Java EE code. -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--
+            The Connector API for accessing the queue in the Service Bus.
+            'Provided' scope since we don't want it packaged with the project,
+            because it's included in the RAR which is deployed separately.
+        -->
+        <dependency>
+            <groupId>fish.payara.cloud.connectors.azuresb</groupId>
+            <artifactId>azure-sb-jca-api</artifactId>
+            <version>0.6.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--
+            The Resource Adapter for the Azure Service Bus.
+            Not required for the code, but we are using Maven to copy
+            the rar into the target/ folder.
+        -->
+        <dependency>
+            <groupId>fish.payara.cloud.connectors.azuresb</groupId>
+            <artifactId>azure-sb-rar</artifactId>
+            <version>0.6.0-SNAPSHOT</version>
+            <type>rar</type>
+            <scope>provided</scope>
+        </dependency>
+        <!--
+            The Payara Micro 181 Jar. Not required for the code, but Maven can
+            be used to copy the Jar into the target/ folder the same as the
+            resource adapter.
+        -->
+        <dependency>
+            <groupId>fish.payara.extras</groupId>
+            <artifactId>payara-micro</artifactId>
+            <version>5.181</version>
+            <scope>provided</scope>
+        </dependency>  
+		
+		<!-- https://mvnrepository.com/artifact/fish.payara.cloud.connectors.azuresb/azure-sb-jca-api -->
+		<dependency>
+		    <groupId>fish.payara.cloud.connectors.azuresb</groupId>
+		    <artifactId>azure-sb-jca-api</artifactId>
+		    <version>0.6.0-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/fish.payara.cloud.connectors.azuresb/azure-sb-example -->
+		<dependency>
+		    <groupId>fish.payara.cloud.connectors.azuresb</groupId>
+		    <artifactId>azure-sb-example</artifactId>
+		    <version>0.5.0</version>
+		</dependency>
+					
+		<!-- https://mvnrepository.com/artifact/com.microsoft.azure/azure-servicebus -->
+		<dependency>
+		    <groupId>com.microsoft.azure</groupId>
+		    <artifactId>azure-servicebus</artifactId>
+		    <version>3.2.0-beta.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-api</artifactId>
+		    <version>1.7.30</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.qpid/proton-j -->
+		<dependency>
+		    <groupId>org.apache.qpid</groupId>
+		    <artifactId>proton-j</artifactId>
+		    <version>0.33.3</version>
+		</dependency>
+  </dependencies>
+  <build>
+    <finalName>azureservicebus-jakartaee</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-ejb-plugin</artifactId>
+        <version>3.0.1</version>
+        <configuration>
+          <ejbVersion>3.2</ejbVersion>
+        </configuration>
+      </plugin>
+      
+            <!-- Updates the WAR plugin, to stop the 'no web.xml' error -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            <!--
+                Copies the RAR into the target/ folder during the 'package' phase.
+                Not required, but is helpful for deploying to have it in the same
+                place as the application.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeArtifactIds>payara-micro,azure-sb-rar</includeArtifactIds>
+                            <outputDirectory>target</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>      
+      
+    </plugins>
+  </build>
+</project>
